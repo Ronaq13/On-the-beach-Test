@@ -1,1 +1,5 @@
+# My input file
 ./my_input.json
+
+# Spec meta data
+spec/examples.txt
