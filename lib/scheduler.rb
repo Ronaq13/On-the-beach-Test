@@ -12,7 +12,7 @@ class Scheduler
 
   def tell_order
     make_graph
-    raise 'circular dependency' unless @graph.cycles.empty?
+    raise Errors::CircularDependency unless @graph.cycles.empty?
 
     @graph.dfs_iterator.to_a.reverse[0..-2]
   end
@@ -24,7 +24,7 @@ class Scheduler
       if vertex2.nil?
         @graph.add_edge('root', vertex1) unless parent_exists?(vertex1)
       else
-        raise 'cant depend on itself' if vertex1.eql?(vertex2)
+        raise Errors::ItselfDependent if vertex1.eql?(vertex2)
 
         add_dependency(vertex1, vertex2)
       end
